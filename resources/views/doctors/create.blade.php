@@ -9,6 +9,16 @@
 @section ('content')
     <h1>Cuadro Médico</h1>
 
+
+
+  
+
+
+    @foreach ($errors->all() as $error)
+   {{ $error}}
+    
+    @endforeach
+
     <div class="flex">
         <form method="POST" action="{{ route ('doctors.store')}}">
             @csrf
@@ -16,10 +26,16 @@
                <x-slot:texto>
                 <br>
     <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" id="nombre" value="">
+    <input type="text" name="nombre" id="nombre" value="{{ old ('nombre') }}">
+    @error ('nombre')
+    {{ $message }}
+@enderror
 <br>&nbsp;<br>
     <label for="especialidad">Especialidad:</label>
-    <input type="text" name="especialidad" id="especialidad" value="">
+    <input type="text" name="especialidad" id="especialidad" value="{{ old ('especialidad') }}">
+    @error ('especialidad')
+    {{ $message }}
+@enderror
 
                </x-slot:texto>
                <x-slot:botones>

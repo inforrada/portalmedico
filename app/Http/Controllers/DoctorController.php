@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DoctorRequest;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -37,9 +38,10 @@ class DoctorController extends Controller
 
         return view ('doctors.create');
     }
-    public function store (Request $request) {
-        //dd($request);
-        return redirect()->route('doctors.index')->flush('message', 'Doctor guardado correctamente')->with('code', '0');
+    public function store (DoctorRequest $request) {
+        dd($request);
+
+        return redirect()->route('doctors.index')->with('message', 'Doctor guardado correctamente')->with('code', '0');
     }
 
     public function edit ($id) {
@@ -59,7 +61,7 @@ class DoctorController extends Controller
         
         return view ('doctors.edit', ['doctor' => $doctors[$key]]); 
     }
-    public function update (Request $request, $id) {
+    public function update (DoctorRequest $request, $id) {
         //dd($request);
         return redirect()->route('doctors.index')->with('message', 'Doctor guardado correctamente')->with('code', '0');
     }
