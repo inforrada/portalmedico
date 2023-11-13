@@ -14,7 +14,13 @@ class PatientSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('patients')->insert(['nombre' => 'david', 'apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
+        DB::table('patients')->insert([
+            'nombre' => 'david', 
+            'apellido1' => 'Martinez',
+            'apellido2' => '', 
+            'email' => 'david@prueba.com'
+        ]);
+        
         DB::table('patients')->insert(['nombre' => 'david2','apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
         DB::table('patients')->insert(['nombre' => 'david3','apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
         DB::table('patients')->insert(['nombre' => 'david4','apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
