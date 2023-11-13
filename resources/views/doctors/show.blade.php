@@ -15,11 +15,23 @@
             //dd ($doctor)
         @endphp
         
-        <x-card nombre="{{ $doctor[1] }} {{ $doctor[2]}}" bgcolor="a0a0FF" texto="{{ $doctor[3] }}" >
+        <x-card nombre="{{ $doctor->nombre }} {{ $doctor->apellido1}}" bgcolor="a0a0FF" ancho="500">
+               <x-slot:texto>
+                    <p>Especialidad: {{ $doctor->especialidad }}</p>
+                    <p>Email: {{ $doctor->email}}</p>
+                    <p>DNI: {{ $doctor->dni}}</p>
+                    <p>Teléfono: {{ $doctor->telefono}}</p>
+                    
+               </x-slot:texto> 
                <x-slot:botones>
-                    <a href="{{ route ('doctors.create') }}" class="text-white bg-slate-300 p-1 m-4">Ver</a>
-                    <a href="{{ route ('doctors.edit', $doctor[0]) }}" class="text-white bg-slate-300 p-1 m-4">Modificar</a>
-                    <form method="post" action="{{ route ('doctors.destroy', $doctor[0])}}">
+                    <a href="{{ route ('doctors.edit', $doctor->id) }}" class="text-white bg-slate-300 p-1 m-4">Modificar</a>
+                    <form method="post" action="{{ route ('doctors.softdelete', $doctor->id)}}">
+                        @csrf
+                        @method ('PATCH')
+                        <button type="submit" class="text-white bg-slate-300 p-1 m-4">Baja lógica</button>
+                    </form>
+
+                    <form method="post" action="{{ route ('doctors.destroy', $doctor->id)}}">
                         @csrf
                         @method ('DELETE')
                         <button type="submit" class="text-white bg-slate-300 p-1 m-4">Borrar</button>

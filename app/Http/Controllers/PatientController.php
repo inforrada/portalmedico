@@ -13,6 +13,8 @@ class PatientController extends Controller
     public function index()
     {
         //
+        $patients = Patient::paginate(6);
+        return view('patients.index', compact('patients'));
     }
 
     /**
@@ -21,6 +23,7 @@ class PatientController extends Controller
     public function create()
     {
         //
+        return view ('patients.create');
     }
 
     /**
@@ -29,6 +32,19 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         //
+        $patient = [];
+        $patient['nombre'] =  $request->input('nombre');
+        $patient['apellido1'] =  $request->input('apellido1');
+        $patient['apellido2'] =  $request->input('apellido2');
+        $patient['email'] =  $request->input('email');
+        
+        $miPaciente = new Patient($patient);
+       // dd($miPaciente);
+       
+        $miPaciente->saveOrFail ();
+        //dd($request);
+        return redirect()->route('patients.index')->with('message', 'Paciente guardado correctamente')->with('code', '0');
+  
     }
 
     /**
@@ -37,6 +53,8 @@ class PatientController extends Controller
     public function show(Patient $patient)
     {
         //
+        //dd($patient);
+        return view ('patients.show', compact('patient')); 
     }
 
     /**
@@ -45,6 +63,7 @@ class PatientController extends Controller
     public function edit(Patient $patient)
     {
         //
+        return view ('patients.edit', compact('patient')); 
     }
 
     /**
@@ -53,6 +72,18 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         //
+        //dd ($patient);
+        $patient->nombre=  $request->input('nombre');
+        $patient->apellido1 =  $request->input('apellido1');
+        $patient->apellido2 =  $request->input('apellido2');
+        $patient->email =  $request->input('email');
+
+    //    $patient->fill ($request->validated());
+            
+        $patient->saveOrFail ();
+        //dd($request);
+        return redirect()->route('patients.index')->with('message', 'Paciente guardado correctamente')->with('code', '0');
+
     }
 
     /**
@@ -61,5 +92,10 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
+        //dd ($patient);
+        $patient->deleteOrFail();
+        
+        return redirect()->route('patients.index')->with('message', 'Paciente borrado correctamente')->with('code', '0');
+    
     }
 }

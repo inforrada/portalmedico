@@ -1,6 +1,6 @@
 
 @isset($ancho)
-<div style="background-color: #{{ $bgcolor}}" class="flex-initial w-{{$ancho}} m-2 p-4">
+<div style="background-color: #{{ $bgcolor}}; width: {{$ancho}}px" class="flex-initial  m-2 p-4" >
     @else
 <div style="background-color: #{{ $bgcolor}}" class="flex-initial w-32 m-2 p-4">
 @endisset

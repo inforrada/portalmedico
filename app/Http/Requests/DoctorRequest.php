@@ -30,8 +30,8 @@ class DoctorRequest extends FormRequest
         return [
             //
 
-            'nombre' => 'required|email',
-            'especialidad' => 'required|par'
+            'nombre' => 'required',
+            'especialidad' => 'required'
         ];
     }
 

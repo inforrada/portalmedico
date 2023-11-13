@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Patient;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,7 +15,7 @@ class PatientSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('patients')->insert([
+        /* DB::table('patients')->insert([
             'nombre' => 'david', 
             'apellido1' => 'Martinez',
             'apellido2' => '', 
@@ -26,5 +27,9 @@ class PatientSeeder extends Seeder
         DB::table('patients')->insert(['nombre' => 'david4','apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
         DB::table('patients')->insert(['nombre' => 'david5','apellido1' => 'Martinez','apellido2' => '', 'email' => 'david@prueba.com']);
         
+
+        */
+
+        Patient::factory()->count(10)->create();
     }
 }

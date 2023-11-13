@@ -10,18 +10,21 @@
     <h1>Cuadro Médico</h1>
 
     <div class="flex">
-        <form method="POST" action="{{ route ('doctors.update', $doctor[0])}}">
+        <form method="POST" action="{{ route ('doctors.update', $doctor->id)}}">
             @csrf
             @method ('PUT')
 
-        <x-card nombre="Modificar Doctor" bgcolor="a0a0FF" ancho="80">
+        <x-card nombre="Modificar Doctor" bgcolor="a0a0FF" ancho="800">
                <x-slot:texto>
                 <br>
-    <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" id="nombre" value="{{ $doctor[1]}}">
-<br>&nbsp;<br>
-    <label for="especialidad">Especialidad:</label>
-    <input type="text" name="especialidad" id="especialidad" value="{{ $doctor[2]}}">
+
+                <x-field name="nombre" label="Nombre" :value="$doctor->nombre" />
+                <x-field name="apellido1" label="Primer apellido" :value="$doctor->apellido1" />
+                <x-field name="apellido2" label="Segundo apellido" :value="$doctor->apellido2" />
+                <x-field name="especialidad" label="Especialidad" :value="$doctor->especialidad" />
+                <x-field name="telefono" label="Teléfono" :value="$doctor->telefono" />
+                <x-field name="dni" label="DNI" :value="$doctor->dni" />
+                <x-field name="email" label="Email" :value="$doctor->email" />
 
                </x-slot:texto>
                <x-slot:botones>

@@ -9,7 +9,7 @@ class ExternalModel extends Model
 {
     use HasFactory;
     protected $connection = 'misegundabd';
-    protected $table ="Miagenda";
+    protected $table ="miagenda";
     protected $primaryKey = ['year', 'month', 'day'];
     protected $incrementing = false;
     

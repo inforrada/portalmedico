@@ -1,40 +1,43 @@
-@extends('patients.layout')
+@extends ('layout')
 
-@section('content')
+@section ('menu')
 
-Contenido definido en el layout principal.
+<x-menu />  
 
-@php
-$fecha = '08/11/2023';    
-@endphp
+@endsection
 
-<x-card bgcolor="FFA0A0" :nombre="$nombre" fecha="{{$fecha}}">
-    
-    <x-slot:texto>Introducción a Vite y su relación con Laravel
-Configuración de Vite como un entorno de desarrollo
-Características y ventajas de Vite en comparación con otros sistemas de compilación
-Uso de Vite para actualizar vistas en tiempo real
-Ejemplos de aplicaciones en vivo<strong>
-Despliegue de aplicaciones Laravel con Vite</strong>
-Consideraciones para la implementación en 
-    </x-slot:texto>
-</x-card>
+@section ('content')
+    <h1>Pacientes</h1>
 
-{{ $nombre }}
-<x-card bgcolor="FFA0A0" :nombre="$nombre">
-    
-    <x-slot:texto>Introducción a Vite y su relación con Laravel
-Configuración de Vite como un entorno de desarrollo
-Características y ventajas de Vite en comparación con otros sistemas de compilación
-Uso de Vite para actualizar vistas en tiempo real
-Ejemplos de aplicaciones en vivo<strong>
-Despliegue de aplicaciones Laravel con Vite</strong>
-Consideraciones para la implementación en 
-    </x-slot:texto>
-</x-card>
+   @if ($message = Session::get('message'))
+    <div> 
+        @if ($code = Session::get ('code'))
+            {{ $code }}&nbsp;-&nbsp; 
+        @endif
+        {{ $message }}</div>
+   @endif
+   <div>
+   <a href="{{ route ('patients.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nuevo paciente</a>
+   </div>          
+   <div class="flex flex-wrap -mb-4">
+    @foreach ($patients as $key => $patient)
+       
+        <x-card nombre="{{ $patient->nombre }} {{ $patient->apellido1}}" bgcolor="a0aFFF" ancho="300" texto="{{ $patient->email }}" >
+               <x-slot:botones>
+                    <a href="{{ route ('patients.show', $patient->id) }}" class="text-white bg-slate-300 p-1 m-4">Ver</a>
+               </x-slot:botones> 
+        </x-card>
+        <hr>
+        
+    @endforeach
+    </div>
+<!--
+    {{-- $doctors->links () --}}
+-->
 
-<x-buttons canEdit="1" />
-<hr>
-<x-buttons canEdit="0" />
+@isset ($patients->onEachSide)
+<br><hr>
+{{ $patients->total() }}
+@endisset
 
 @endsection
