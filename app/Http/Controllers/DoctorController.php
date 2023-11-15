@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DoctorRequest;
+use App\Models\User;
+
 
 class DoctorController extends Controller
 {
     //
-    public function index (){
+    public function __construct()
+    {
+        $this->middleware('filter');
+    }
+    public function index (Request $request){
+       
         /* $doctors = [
             [1, 'David', 'Martinez', 'Neurocijano'],
             [2, 'Antonio', 'Fernandez', 'Cardiólogo']     
@@ -58,6 +66,11 @@ class DoctorController extends Controller
         //->joinSub ($subSQL, 'subsql', 'subsql.id', '=', 'doctors.id')->get();
 
         //dd ($objSQL);
+        /* Asignamo el rol Admin al usuario 1
+        $user =  User::find(1);
+        $user->assignRole ('admin');
+        dd($user); */
+
         return view('doctors.index', ['doctors' => $doctors]);
 
     }
@@ -75,31 +88,59 @@ class DoctorController extends Controller
             }
             $i++;
         } */
-        $doctor = DB::table('doctors')->find($id);
-        return view ('doctors.show', ['doctor' => $doctor]); 
+
+        $user =  User::find(1);
+        /* if ($user->hasRole('admin')) {
+            if ($user->can('doctorEdit2') ) {
+                return redirect()->route('doctors.edit', $id);
+            }
+            else {
+                return redirect()->route('doctors.index', $id);
+            }
+            
+        }   */  
+        if ($user->can('doctorView') ) {   
+            $doctor = DB::table('doctors')->find($id);
+            return view ('doctors.show', ['doctor' => $doctor]); 
+        }
+        else {
+            return redirect()->route('doctors.index');
+        }
     }
     public function create () {
-
-        return view ('doctors.create');
+        $user =  User::find(1);
+        if ($user->can('doctorCreate')) {
+            return view ('doctors.create');
+        }
+        else {
+            return redirect()->route('doctors.index');
+        }
+       
     }
     public function store (DoctorRequest $request) {
       //  dd($request);
         
-        $doctor = $request->validated();
+        $user =  User::find(1);
+        if ($user->can('doctorCreate')) {
+            $doctor = $request->validated();
 
-        /* $doctor =[
-            'nombre' => $request->nombre,
-            'apellido1' => $request->input('apellido1')
-        ]; */
-        $doctor['apellido1'] =  $request->input('apellido1');
-        $doctor['apellido2'] =  $request->input('apellido2');
-        $doctor['email'] =  $request->input('email');
-        $doctor['telefono'] =  $request->input('telefono');
-        $doctor['dni'] =  $request->input('dni');
+            /* $doctor =[
+                'nombre' => $request->nombre,
+                'apellido1' => $request->input('apellido1')
+            ]; */
+            $doctor['apellido1'] =  $request->input('apellido1');
+            $doctor['apellido2'] =  $request->input('apellido2');
+            $doctor['email'] =  $request->input('email');
+            $doctor['telefono'] =  $request->input('telefono');
+            $doctor['dni'] =  $request->input('dni');
 
-        DB::table('doctors')->insert ($doctor);
-        
-        return redirect()->route('doctors.index')->with('message', 'Doctor guardado correctamente')->with('code', '0');
+            DB::table('doctors')->insert ($doctor);
+            
+            return redirect()->route('doctors.index')->with('message', 'Doctor guardado correctamente')->with('code', '0');
+        }
+        else {
+            return redirect()->route('doctors.index');
+        }
     }
 
     public function edit ($id) {
@@ -121,6 +162,10 @@ class DoctorController extends Controller
         return view ('doctors.edit', ['doctor' => $doctor]); 
     }
     public function update (DoctorRequest $request, $id) {
+        $user =  User::find(1);
+        if (!$user->can('doctorEdit')) {
+            return redirect()->route('doctors.index')->with('code', '403')->with('message', 'No puedes realizar la operación');
+        }    
         $doctor = $request->validated();
         $doctor['apellido1'] =  $request->input('apellido1');
         $doctor['apellido2'] =  $request->input('apellido2');
