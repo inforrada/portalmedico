@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Doctors;
 
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 
-class AgendaController extends Controller
+
+class AgendaController extends DoctorsController
 {
     /**
      * Display a listing of the resource.

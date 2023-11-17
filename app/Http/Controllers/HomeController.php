@@ -23,7 +23,7 @@ class HomeController extends Controller
         // dd($request);
 
         if ($request->hasFile('img')) {
-            $ruta =  $request->file('img')->store('public/images');
+            $ruta =  $request->file('img')->store("public/doctors/images");
         }
         $url = Storage::url($ruta);
 

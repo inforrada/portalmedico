@@ -7,6 +7,7 @@
     <title>Document</title>
     @vite (['resources/css/app.css', 'resources/js/app.js'])
     @yield('tag-header')
+    @livewireStyles
 </head>
 <body>
     
@@ -17,5 +18,6 @@
         @yield ('content')
     </section>
     @yield('end-body')        
+    @livewireScripts
 </body>
 </html>

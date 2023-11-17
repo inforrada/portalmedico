@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 
@@ -15,6 +16,9 @@ use App\Http\Controllers\PatientController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+include "doctors/web.php";
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,25 +52,7 @@ Route::prefix('vac')->group(
     }
 ); 
 
-$arrayMiddle = ['filter'];
 
-Route::get('/doctors', [DoctorController::class, 'index'])->middleware($arrayMiddle)->name('doctors.index');
-
-Route::middleware(['filter'])->group(function () {
-    Route::get('/doctors/create', [DoctorController::class, 'create'])->name ('doctors.create');
-    Route::post('/doctors/store', [DoctorController::class, 'store'])->name('doctors.store');
-});
-
-Route::get('/doctors/{id}/edit', [DoctorController::class, 'edit'])->name ('doctors.edit');
-Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('doctors.update');
-
-Route::patch('/doctors/{id}/delete', [DoctorController::class, 'softdelete'])->name('doctors.softdelete');
-
-Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
-
-Route::get('/doctors/{id}', [DoctorController::class, 'show'])->name ('doctors.show');
-
-Route::get('/doctor/{nombre}', [DoctorController::class, 'show'])->name ('doctors.show');
 
 
 
@@ -82,4 +68,5 @@ Route::put('/patients/{patient}', [PatientController::class, 'update'])->name('p
 Route::delete('/patients/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
 
 Route::get('/patients/{patient}', [PatientController::class, 'show'])->name ('patients.show');
+
 

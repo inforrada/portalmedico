@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Doctors;
 
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\DoctorRequest;
+//use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Http\Request as RequestWeb;
+use GuzzleHttp\Psr7\Request as RequestApi;
 
-class DoctorController extends Controller
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Doctors\DoctorRequest;
+
+
+class DoctorController extends DoctorsController
 {
     //
     public function __construct()
     {
         $this->middleware('filter');
     }
-    public function index (Request $request){
-       
+    public function index (){
+        
         /* $doctors = [
             [1, 'David', 'Martinez', 'Neurocijano'],
             [2, 'Antonio', 'Fernandez', 'Cardiólogo']     
@@ -34,7 +38,7 @@ class DoctorController extends Controller
        // ->where("telefono", '=', '9998888777') // <> / !=  > < <= >= like
         //->whereRaw("nombre like '%v%' or nombre like '%a%'")
         //->get();
-        ->paginate(3);
+        ->paginate(12);
 //                dd($doctors);
     /*    $objSQL = DB::table('doctors'); //->join ('users', 'users.id', '=', 'doctors.id');
 
@@ -70,7 +74,7 @@ class DoctorController extends Controller
         $user =  User::find(1);
         $user->assignRole ('admin');
         dd($user); */
-
+        
         return view('doctors.index', ['doctors' => $doctors]);
 
     }
@@ -99,29 +103,29 @@ class DoctorController extends Controller
             }
             
         }   */  
-        if ($user->can('doctorView') ) {   
+       // if ($user->can('doctorView') ) {   
             $doctor = DB::table('doctors')->find($id);
             return view ('doctors.show', ['doctor' => $doctor]); 
-        }
+        /* }
         else {
             return redirect()->route('doctors.index');
-        }
+        }*/
     }
     public function create () {
         $user =  User::find(1);
-        if ($user->can('doctorCreate')) {
+      //  if ($user->can('doctorCreate')) {
             return view ('doctors.create');
-        }
+       /* }
         else {
             return redirect()->route('doctors.index');
-        }
+        } */
        
     }
     public function store (DoctorRequest $request) {
       //  dd($request);
         
         $user =  User::find(1);
-        if ($user->can('doctorCreate')) {
+       // if ($user->can('doctorCreate')) {
             $doctor = $request->validated();
 
             /* $doctor =[
@@ -137,10 +141,10 @@ class DoctorController extends Controller
             DB::table('doctors')->insert ($doctor);
             
             return redirect()->route('doctors.index')->with('message', 'Doctor guardado correctamente')->with('code', '0');
-        }
+       /* }
         else {
             return redirect()->route('doctors.index');
-        }
+        } */
     }
 
     public function edit ($id) {
