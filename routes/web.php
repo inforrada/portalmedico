@@ -70,3 +70,4 @@ Route::delete('/patients/{patient}', [PatientController::class, 'destroy'])->nam
 Route::get('/patients/{patient}', [PatientController::class, 'show'])->name ('patients.show');
 
 
+Route::get('/suma/{a}/{b}', [HomeController::class, 'suma'])->name('sumar');
