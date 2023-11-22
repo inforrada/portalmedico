@@ -41,7 +41,13 @@ return [
             'retry_after' => 90,
             'after_commit' => false,
         ],
-
+        'databaseHigh' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'high',
+            'retry_after' => 10,
+            'after_commit' => false,
+        ],
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',

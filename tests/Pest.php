@@ -13,9 +13,21 @@
 
 uses(
     Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
+    // Illuminate\Foundation\Testing\RefreshDatabase::class, 
 )->in('Feature');
 
+
+/* Faltaba indicar que usábamos TestCase para la carpeta Unit
+
+y ejecutarlo con  ./vendor/bin/pest o bien cambiar el bloque de composer.json
+"scripts": {
+    "test": "vendor/bin/pest"
+}
+*/
+uses(
+    Tests\TestCase::class,
+    
+)->in('Unit');
 /*
 |--------------------------------------------------------------------------
 | Expectations

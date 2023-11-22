@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PatientController;
 
 /*
@@ -71,3 +73,7 @@ Route::get('/patients/{patient}', [PatientController::class, 'show'])->name ('pa
 
 
 Route::get('/suma/{a}/{b}', [HomeController::class, 'suma'])->name('sumar');
+
+Route::get('/contacto', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacto', [ContactController::class, 'store'])->name('contacts.store');
+

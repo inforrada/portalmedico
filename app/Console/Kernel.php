@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Jobs\MiTrabajoJob;
 use Illuminate\Console\Scheduling\Schedule;
+use App\Notifications\TareaProgramadaEjecutada;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -13,6 +15,27 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->job(new MiTrabajoJob ())->daily();
+        $schedule->job(new MiTrabajoJob ())->yearlyOn(2,28,'23:59');
+        $schedule->job(new MiTrabajoJob ())->every ();
+        
+        $schedule->job(new MiTrabajoJob ())->cron('* * * * 7');
+        
+        $schedule->job(new MiTrabajoJob ())->dailyOn (3, '13:30');
+        
+        
+        try {
+            $schedule->job(new MiTrabajoJob ())->everyMinute();
+
+        }
+        catch (Exception $e) {
+            afdasfsad
+        }
+        
+        $schedule->call (function () {
+            
+           ( new MiTrabajoJob ()) ->notify (new TareaProgramadaEjecutada ());
+        })->onQueue('sqs');
     }
 
     /**

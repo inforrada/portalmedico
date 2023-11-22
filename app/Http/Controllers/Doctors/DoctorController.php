@@ -78,8 +78,8 @@ class DoctorController extends DoctorsController
         return view('doctors.index', ['doctors' => $doctors]);
 
     }
-    public function show ($id) {
-       /*$doctors = [
+    public static function micargadelshow ($id) {
+          /*$doctors = [
             [1, 'David', 'Martinez', 'Neurocijano'],
             [2, 'Antonio', 'Fernandez', 'Cardiólogo']     
         ];
@@ -105,6 +105,10 @@ class DoctorController extends DoctorsController
         }   */  
        // if ($user->can('doctorView') ) {   
             $doctor = DB::table('doctors')->find($id);
+            return $doctor;
+    }
+    public function show ($id) {
+        $doctor = DoctorController::micargadelshow ($id);
             return view ('doctors.show', ['doctor' => $doctor]); 
         /* }
         else {
