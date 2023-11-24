@@ -9,7 +9,9 @@ class Doctor extends Model
 {
     use HasFactory;
 
+    
     public function patients () {
         return $this->belongsToMany(Patient::class);
     }
+
 }

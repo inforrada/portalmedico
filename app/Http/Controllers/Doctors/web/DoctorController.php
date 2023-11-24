@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Doctors;
+namespace App\Http\Controllers\Doctors\web;
 
 
 //use Illuminate\Http\Request;
-use App\Models\User;
 
-use Illuminate\Http\Request as RequestWeb;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\App;
 use GuzzleHttp\Psr7\Request as RequestApi;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request as RequestWeb;
 use App\Http\Requests\Doctors\DoctorRequest;
+use App\Http\Controllers\Doctors\DoctorsController;
+use App\Http\Controllers\Doctors\core\DoctorController as DoctorCore;
+
 
 
 class DoctorController extends DoctorsController
@@ -21,6 +26,13 @@ class DoctorController extends DoctorsController
         $this->middleware('filter');
     }
     public function index (){
+
+        $locale= App::currentLocale ();
+        App::setLocale('en_GB');
+
+        if (App::isLocale('en')) {
+            //ejcutamos
+        }
         
         /* $doctors = [
             [1, 'David', 'Martinez', 'Neurocijano'],
@@ -192,10 +204,9 @@ class DoctorController extends DoctorsController
     }
 
     public function softdelete ( $id) {
-        DB::table('doctors')
-            ->where ('id', '=', $id)
-            ->update (['baja' => 'S']);
-            return redirect()->route('doctors.index')->with('message', 'Doctor dado de baja correctamente')->with('code', '0');
+     /// Aquí la lógica común de la api
+        DoctorCore::softDeletecore ($id);
+        return redirect()->route('doctors.index')->with('message', 'Doctor dado de baja correctamente')->with('code', '0');
         }
     public function destroy ($id) {
        // dd($id);

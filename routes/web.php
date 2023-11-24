@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\Doctors\web\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PatientController;
 

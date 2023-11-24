@@ -24,18 +24,9 @@ class Kernel extends ConsoleKernel
         $schedule->job(new MiTrabajoJob ())->dailyOn (3, '13:30');
         
         
-        try {
-            $schedule->job(new MiTrabajoJob ())->everyMinute();
 
-        }
-        catch (Exception $e) {
-            afdasfsad
-        }
         
-        $schedule->call (function () {
-            
-           ( new MiTrabajoJob ()) ->notify (new TareaProgramadaEjecutada ());
-        })->onQueue('sqs');
+       
     }
 
     /**

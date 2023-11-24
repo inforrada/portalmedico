@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\EmailMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\Doctors\DoctorController;
+use App\Http\Controllers\Doctors\web\DoctorController;
 use App\Jobs\MiTrabajoJob;
 
 class ContactController extends Controller

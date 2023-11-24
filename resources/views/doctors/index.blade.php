@@ -7,7 +7,9 @@
 @endsection
 
 @section ('content')
-    <h1>Cuadro Médico</h1>
+    <h1> @lang("Nuevo medico") </h1>
+    <h2> @lang("doctors.nombre") </h2>
+    <h3> @lang("doctoresnoexiste.nombre") </h3>
 
    @if ($message = Session::get('message'))
     <div> 
@@ -25,7 +27,10 @@
    @endguest
 
    @cannot('doctorCreate')
-   <a href="{{ route ('doctors.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nuevo doctor</a>
+   <a href="{{ route ('doctors.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    {!! __("Nuevo doctor", ["parametro" => "nombre <strong>del parámetro</strong>"]) !!}</a>
+    <a href="{{ route ('doctors.create') }}" class="bg-blue-200 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">
+        @lang("Nuevo doctor", ["parametro" => "nombre  <strong>del parámetro </strong>"])</a>
    @else   
     adsfasdfs 
    @endcannot

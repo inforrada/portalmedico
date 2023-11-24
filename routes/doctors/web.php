@@ -1,7 +1,7 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Doctors\DoctorController;
+use App\Http\Controllers\Doctors\web\DoctorController;
 
 $arrayMiddle = ['filter'];
 
